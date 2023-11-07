@@ -44,6 +44,8 @@
             this.Afficher = new System.Windows.Forms.Button();
             this.Next = new System.Windows.Forms.Button();
             this.Prev = new System.Windows.Forms.Button();
+            this.FIRST = new System.Windows.Forms.Button();
+            this.LAST = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label1
@@ -190,11 +192,33 @@
             this.Prev.UseVisualStyleBackColor = true;
             this.Prev.Click += new System.EventHandler(this.Prev_Click);
             // 
+            // FIRST
+            // 
+            this.FIRST.Location = new System.Drawing.Point(145, 377);
+            this.FIRST.Name = "FIRST";
+            this.FIRST.Size = new System.Drawing.Size(75, 23);
+            this.FIRST.TabIndex = 16;
+            this.FIRST.Text = "FIRST";
+            this.FIRST.UseVisualStyleBackColor = true;
+            this.FIRST.Click += new System.EventHandler(this.FIRST_Click);
+            // 
+            // LAST
+            // 
+            this.LAST.Location = new System.Drawing.Point(646, 378);
+            this.LAST.Name = "LAST";
+            this.LAST.Size = new System.Drawing.Size(75, 23);
+            this.LAST.TabIndex = 17;
+            this.LAST.Text = "LAST";
+            this.LAST.UseVisualStyleBackColor = true;
+            this.LAST.Click += new System.EventHandler(this.LAST_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.LAST);
+            this.Controls.Add(this.FIRST);
             this.Controls.Add(this.Prev);
             this.Controls.Add(this.Next);
             this.Controls.Add(this.Afficher);
@@ -237,6 +261,8 @@
         private System.Windows.Forms.Button Afficher;
         private System.Windows.Forms.Button Next;
         private System.Windows.Forms.Button Prev;
+        private System.Windows.Forms.Button FIRST;
+        private System.Windows.Forms.Button LAST;
     }
 }
 

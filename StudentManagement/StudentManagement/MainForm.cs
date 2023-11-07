@@ -300,6 +300,94 @@ namespace StudentManagement
             }
         }
 
+        private void FIRST_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (connection.State != ConnectionState.Open)
+                {
+                    connection.Open();
+                }
+
+                string selectFirstQuery = "SELECT * FROM students ORDER BY id LIMIT 1";
+
+                MySqlCommand cmd = new MySqlCommand(selectFirstQuery, connection);
+
+                MySqlDataReader reader = cmd.ExecuteReader();
+
+                if (reader.Read())
+                {
+                    Nom.Text = reader["nom"].ToString();
+                    Prenom.Text = reader["prenom"].ToString();
+                    Filiere.Text = reader["filliere"].ToString();
+                    Code.Text = reader["code"].ToString();
+
+                    currentRecordId = Convert.ToInt32(reader["id"]);
+
+                    // Re-enable the "Next" and "Previous" buttons since we are at the first record
+                    Next.Enabled = true;
+                    Prev.Enabled = false;  // You can enable the "Previous" button if needed
+                }
+                else
+                {
+                    MessageBox.Show("No records found.");
+                    // Disable the "Next" and "Previous" buttons when there are no records
+                    Next.Enabled = false;
+                    Prev.Enabled = false;
+                }
+
+                reader.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error: " + ex.Message);
+            }
+        }
+
+
+        private void LAST_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (connection.State != ConnectionState.Open)
+                {
+                    connection.Open();
+                }
+
+                string selectLastQuery = "SELECT * FROM students ORDER BY id DESC LIMIT 1";
+
+                MySqlCommand cmd = new MySqlCommand(selectLastQuery, connection);
+
+                MySqlDataReader reader = cmd.ExecuteReader();
+
+                if (reader.Read())
+                {
+                    Nom.Text = reader["nom"].ToString();
+                    Prenom.Text = reader["prenom"].ToString();
+                    Filiere.Text = reader["filliere"].ToString();
+                    Code.Text = reader["code"].ToString();
+
+                    currentRecordId = Convert.ToInt32(reader["id"]);
+
+                    // Re-enable the "Next" and "Previous" buttons since we are at the last record
+                    Next.Enabled = false;  // You can enable the "Next" button if needed
+                    Prev.Enabled = true;
+                }
+                else
+                {
+                    MessageBox.Show("No records found.");
+                    // Disable the "Next" and "Previous" buttons when there are no records
+                    Next.Enabled = false;
+                    Prev.Enabled = false;
+                }
+
+                reader.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error: " + ex.Message);
+            }
+        }
 
     }
 }
