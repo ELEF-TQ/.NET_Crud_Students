@@ -42,6 +42,8 @@
             this.Supprimer = new System.Windows.Forms.Button();
             this.Chercher = new System.Windows.Forms.Button();
             this.Afficher = new System.Windows.Forms.Button();
+            this.Next = new System.Windows.Forms.Button();
+            this.Prev = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label1
@@ -86,7 +88,6 @@
             this.Code.Name = "Code";
             this.Code.Size = new System.Drawing.Size(100, 20);
             this.Code.TabIndex = 4;
-            this.Code.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 
             // Prenom
             // 
@@ -167,13 +168,35 @@
             this.Afficher.TabIndex = 13;
             this.Afficher.Text = "Afficher";
             this.Afficher.UseVisualStyleBackColor = true;
-            this.Afficher.Click += new System.EventHandler(this.button6_Click);
+            this.Afficher.Click += new System.EventHandler(this.Afficher_Click);
+            // 
+            // Next
+            // 
+            this.Next.Location = new System.Drawing.Point(543, 378);
+            this.Next.Name = "Next";
+            this.Next.Size = new System.Drawing.Size(75, 23);
+            this.Next.TabIndex = 14;
+            this.Next.Text = "Next";
+            this.Next.UseVisualStyleBackColor = true;
+            this.Next.Click += new System.EventHandler(this.Next_Click);
+            // 
+            // Prev
+            // 
+            this.Prev.Location = new System.Drawing.Point(293, 378);
+            this.Prev.Name = "Prev";
+            this.Prev.Size = new System.Drawing.Size(75, 23);
+            this.Prev.TabIndex = 15;
+            this.Prev.Text = "Prev";
+            this.Prev.UseVisualStyleBackColor = true;
+            this.Prev.Click += new System.EventHandler(this.Prev_Click);
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.Prev);
+            this.Controls.Add(this.Next);
             this.Controls.Add(this.Afficher);
             this.Controls.Add(this.Chercher);
             this.Controls.Add(this.Supprimer);
@@ -212,6 +235,8 @@
         private System.Windows.Forms.Button Supprimer;
         private System.Windows.Forms.Button Chercher;
         private System.Windows.Forms.Button Afficher;
+        private System.Windows.Forms.Button Next;
+        private System.Windows.Forms.Button Prev;
     }
 }
 

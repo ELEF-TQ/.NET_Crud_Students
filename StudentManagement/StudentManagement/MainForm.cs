@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Data;
 using System.Windows.Forms;
 using MySql.Data.MySqlClient;
 
@@ -6,31 +7,13 @@ namespace StudentManagement
 {
     public partial class MainForm : Form
     {
-        private MySqlConnection connection;  // Add this field to store the connection
+        private MySqlConnection connection;
+        private int currentRecordId = 0;
 
         public MainForm(MySqlConnection connection)
         {
             InitializeComponent();
-            this.connection = connection;  // Store the connection in the field
-        }
-
-      
-
-        private void MainForm_Load(object sender, EventArgs e)
-        {
-            // You can use the 'connection' field here if needed
-        }
-
-        private void button6_Click(object sender, EventArgs e)
-        {
-            // You can access the 'connection' field here
-            Table tableForm = new Table(connection);
-            tableForm.Show();
-        }
-
-        private void textBox1_TextChanged(object sender, EventArgs e)
-        {
-            // You can use the 'connection' field here if needed
+            this.connection = connection;  
         }
 
 
@@ -223,6 +206,100 @@ namespace StudentManagement
                 MessageBox.Show("Error: " + ex.Message);
             }
         }
+
+        private void Afficher_Click(object sender, EventArgs e)
+        {
+            Table tableForm = new Table(connection);
+            tableForm.Show();
+        }
+
+        private void MainForm_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Next_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (connection.State != ConnectionState.Open)
+                {
+                    connection.Open();
+                }
+
+                string selectNextQuery = "SELECT * FROM students WHERE id > @id ORDER BY id LIMIT 1";
+
+                MySqlCommand cmd = new MySqlCommand(selectNextQuery, connection);
+                cmd.Parameters.AddWithValue("@id", currentRecordId);
+
+                MySqlDataReader reader = cmd.ExecuteReader();
+
+                if (reader.Read())
+                {
+                    Nom.Text = reader["nom"].ToString();
+                    Prenom.Text = reader["prenom"].ToString();
+                    Filiere.Text = reader["filliere"].ToString();
+                    Code.Text = reader["code"].ToString();
+
+                    currentRecordId = Convert.ToInt32(reader["id"]);
+                }
+                else
+                {
+                    MessageBox.Show("No more records.");
+                    // Disable the "Next" button when there are no more records
+                    Next.Enabled = false;
+                    // You can also consider enabling a "Previous" button here if needed
+                }
+
+                reader.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error: " + ex.Message);
+            }
+        }
+
+        private void Prev_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (connection.State != ConnectionState.Open)
+                {
+                    connection.Open();
+                }
+
+                string selectPrevQuery = "SELECT * FROM students WHERE id < @id ORDER BY id DESC LIMIT 1";
+
+                MySqlCommand cmd = new MySqlCommand(selectPrevQuery, connection);
+                cmd.Parameters.AddWithValue("@id", currentRecordId);
+
+                MySqlDataReader reader = cmd.ExecuteReader();
+
+                if (reader.Read())
+                {
+                    Nom.Text = reader["nom"].ToString();
+                    Prenom.Text = reader["prenom"].ToString();
+                    Filiere.Text = reader["filliere"].ToString();
+                    Code.Text = reader["code"].ToString();
+
+                    currentRecordId = Convert.ToInt32(reader["id"]);
+                }
+                else
+                {
+                    MessageBox.Show("No previous records.");
+                    // Disable the "Previous" button when there are no previous records
+                    Prev.Enabled = false;
+                    // You can also consider enabling a "Next" button here if needed
+                }
+
+                reader.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error: " + ex.Message);
+            }
+        }
+
 
     }
 }

@@ -20,10 +20,7 @@ namespace StudentManagement
             LoadStudents();
         }
 
-        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-           
-        }
+
 
         private void LoadStudents()
         {
@@ -41,6 +38,7 @@ namespace StudentManagement
                 MessageBox.Show("Error: " + ex.Message);
             }
         }
+
 
     }
 }
